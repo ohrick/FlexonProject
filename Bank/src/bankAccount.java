@@ -22,6 +22,8 @@ class bankAccount {
     private double depositAmountCount;
     private int depositCount;
 
+    private double remainWithdrawLimit;
+
     // Constructer
     public bankAccount() {
         this.number = "123456789";
@@ -36,6 +38,7 @@ class bankAccount {
 
         this.depositAmountCount = 0.0;
         this.depositCount = 0;
+        this.remainWithdrawLimit = 1000.0;
     }
 
     // Show balance
@@ -88,19 +91,22 @@ class bankAccount {
 
     // Withdraw
     public void withdraw(double amount) {
-        if (amount > this.balance) {
+        if (remainWithdrawLimit - amount < 0 || amount > this.balance) {
             System.out.println("Withdraw failed.");
             this.getBalance();
-        } else {
-            this.balance -= amount;
-
-            String t = this.getDate();
-            bankTransaction trans = new bankTransaction(t, -amount, this.balance);
-            this.withdrawList.add(trans);
-
-            System.out.println("Withdraw successfully.");
-            this.getBalance();
+            return;
         }
+
+        this.balance -= amount;
+        remainWithdrawLimit -= amount;
+        System.out.println("remain withdraw: " + remainWithdrawLimit);
+
+        String t = this.getDate();
+        bankTransaction trans = new bankTransaction(t, -amount, this.balance);
+        this.withdrawList.add(trans);
+
+        System.out.println("Withdraw successfully.");
+        this.getBalance();
     }
 
     // Transaction History
@@ -109,6 +115,7 @@ class bankAccount {
             System.out.println("You don't have any deposit.");
             return;
         }
+
         System.out.println("Deposit Transactions: ");
         System.out.println("Time || Amount || Balance");
         for (int i = 0; i < this.depositList.size(); i++) {
