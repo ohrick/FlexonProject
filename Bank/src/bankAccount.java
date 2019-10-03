@@ -1,9 +1,14 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 class bankAccount {
     private String number;
     private double balance;
     private String name;
     private String email;
     private String phone;
+    private String type;
+    private LocalDate day;
 
     // Constructer
     public bankAccount() {
@@ -12,12 +17,32 @@ class bankAccount {
         this.name = "Jenny Zhang";
         this.email = "jennyzxy019@gmail.com";
         this.phone = "510-542-7896";
+        this.type = "Checking";
+        this.day = LocalDate.now();
     }
 
     // Show balance
     public void getBalance() {
-        System.out.println(this.name + ", your current balance is: " + this.balance);
+        this.getDate();
+        this.getName();
+        this.getType();
+        System.out.println("Current Balance:    " + this.balance);
         System.out.println();
+    }
+
+    // Get account name
+    public void getName() {
+        System.out.println("Hi, " + this.name);
+    }
+
+    // Get account type
+    public void getType() {
+        System.out.println("Account Type:   " + this.type);
+    }
+
+    // Get date
+    public void getDate() {
+        System.out.println(DateTimeFormatter.ofPattern("yyy/MM/dd").format(this.day));
     }
 
     // Deposit
@@ -37,11 +62,5 @@ class bankAccount {
             System.out.println("Withdraw successfully.");
             this.getBalance();
         }
-    }
-
-    // Get account name
-    public void getName() {
-        System.out.println("Hi, " + this.name);
-        System.out.println();
     }
 }
