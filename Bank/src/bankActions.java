@@ -39,6 +39,12 @@ class bankActions {
                     break;
                 }
                 break;
+            case "4": // get deposit transactions
+                account.getDepositTransaction();
+                break;
+            case "5": // get withdraw transactions
+                account.getWithdrawTransaction();
+                break;
             default:
                 account.getName();
         }
@@ -51,6 +57,8 @@ class bankActions {
         System.out.println("Check balance, press 1");
         System.out.println("Deposit, press 2");
         System.out.println("Withdraw, press 3");
+        System.out.println("Show deposit history, press 4");
+        System.out.println("Show withdraw history, press 5");
         System.out.println("Exit, press 0");
         while (true) {
             String line = s.nextLine();
