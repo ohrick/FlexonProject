@@ -14,11 +14,13 @@ class bankAccount {
 
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-    // Deposit list
+    // deposit, withdraw list
     private List<bankTransaction> depositList;
-
-    // Withdraw list
     private List<bankTransaction> withdrawList;
+
+    // deposit count;
+    private double depositAmountCount;
+    private int depositCount;
 
     // Constructer
     public bankAccount() {
@@ -31,6 +33,9 @@ class bankAccount {
 
         this.depositList = new ArrayList<>();
         this.withdrawList = new ArrayList<>();
+
+        this.depositAmountCount = 0.0;
+        this.depositCount = 0;
     }
 
     // Show balance
@@ -61,7 +66,14 @@ class bankAccount {
 
     // Deposit
     public void deposit(double amount) {
+        if (amount < 50 || amount > 500 || this.depositAmountCount > 1500 || this.depositCount > 3) {
+            System.out.println("Deposited not allowed.");
+            return;
+        }
+
         this.balance += amount;
+        this.depositCount++;
+        this.depositAmountCount += amount;
 
         // add deposit action to transaction history list.
         String t = this.getDate();
