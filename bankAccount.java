@@ -49,7 +49,8 @@ class bank {
 	}
 	public void actions(String s) {
 		switch (s) {
-			case "1": 
+			case "1":
+				// 1. show account balance 
 				System.out.println(account.name + ", your current balance is: " + account.balance);
 				break;
 			case "2": 
